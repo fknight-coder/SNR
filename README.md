@@ -43,7 +43,7 @@ The control-flow below mirrors the firmware decision logic (sensing → calibrat
 
 ```mermaid
 flowchart TD
-    A["Sense: T, S, D, Battery"] --> B["Core Compute:<br/>Calibration + Averaging"]
+    A["Sense: T, S, D, Battery"] --> B["Core Compute:<br/>Calibration + Scaling"]
     B --> C{Battery OK?}
     C -- No --> D["Fallback: CW mode"]
     C -- Yes --> E{LUT cache hit?<br/>RAM + SD card}
