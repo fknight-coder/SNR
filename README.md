@@ -25,7 +25,11 @@ SparkX proposes a **software-defined sonar transmitter** that senses its environ
 The payload continuously samples five environmental/system inputs (temperature, salinity, depth, and battery/system state), runs them through physics-based acoustic models, and derives the transmission parameters that minimize propagation loss while meeting the mission's resolution and SNR requirements. The resulting waveform is generated on-chip via DDS and streamed to the DAC using Timer + DMA, keeping the CPU free for the next sensing/decision cycle.
 
 **Core pipeline:** `Sense → Calibrate → Model Acoustics → Select Frequency → Select Waveform → Synthesize (DDS) → Stream (DMA) → Transmit (DAC)`
-
+![STM32]("C:\Users\KARTIK\Downloads\WhatsApp Image 2026-09-28 at 12.13.14 AM.jpeg")
+![MATLAB](""C:\Users\KARTIK\Downloads\WhatsApp Image 2026-09-28 at 12.13.42 AM.jpeg")
+![KiCad]("C:\Users\KARTIK\Downloads\WhatsApp Image 2026-09-28 at 12.14.09 AM.jpeg")
+![C]("C:\Users\KARTIK\Downloads\WhatsApp Image 2026-09-28 at 12.14.33 AM.jpeg")
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ### Key Innovations
 
 | # | Innovation | Description |
