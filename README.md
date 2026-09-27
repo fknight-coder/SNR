@@ -216,8 +216,8 @@ Modulation and windowing choice are driven by the live acoustic-loss and SNR est
 SparkX-SIH26058/
 │
 ├── firmware/                 STM32G474 embedded C firmware
-│   ├── src/                  DDS engine, sensor acquisition, decision logic
-│   └── inc/                  Headers / configuration
+│   ├── main/                  DDS engine, sensor acquisition, decision logic
+│                   
 │
 ├── docs/                     Design documentation
 │   ├── math/                 Full derivation sheet (acoustic + DSP formulas)
