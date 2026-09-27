@@ -2,7 +2,11 @@
 
 **Smart India Hackathon 2026 — Problem Statement 26058**
 
-
+![STM32](https://img.shields.io/badge/MCU-STM32G474-03234B?logo=stmicroelectronics&logoColor=white)
+![MATLAB](https://img.shields.io/badge/Sim-MATLAB-orange?logo=mathworks&logoColor=white)
+![KiCad](https://img.shields.io/badge/PCB-KiCad-314CB0?logo=kicad&logoColor=white)
+![C](https://img.shields.io/badge/Firmware-C-A8B9CC?logo=c&logoColor=black)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 | Team | Team ID | PS Category | Theme | Institution |
 |---|---|---|---|---|
@@ -25,11 +29,19 @@ SparkX proposes a **software-defined sonar transmitter** that senses its environ
 The payload continuously samples five environmental/system inputs (temperature, salinity, depth, and battery/system state), runs them through physics-based acoustic models, and derives the transmission parameters that minimize propagation loss while meeting the mission's resolution and SNR requirements. The resulting waveform is generated on-chip via DDS and streamed to the DAC using Timer + DMA, keeping the CPU free for the next sensing/decision cycle.
 
 **Core pipeline:** `Sense → Calibrate → Model Acoustics → Select Frequency → Select Waveform → Synthesize (DDS) → Stream (DMA) → Transmit (DAC)`
-![STM32]("C:\Users\KARTIK\Downloads\WhatsApp Image 2026-09-28 at 12.13.14 AM.jpeg")
-![MATLAB](""C:\Users\KARTIK\Downloads\WhatsApp Image 2026-09-28 at 12.13.42 AM.jpeg")
-![KiCad]("C:\Users\KARTIK\Downloads\WhatsApp Image 2026-09-28 at 12.14.09 AM.jpeg")
-![C]("C:\Users\KARTIK\Downloads\WhatsApp Image 2026-09-28 at 12.14.33 AM.jpeg")
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+
+### Hardware-Validated Waveforms
+
+Captured on a Keysight InfiniiVision MSOX3014T (time domain + FFT):
+
+| ![CW Waveform](docs/images/cw_waveform.jpeg) | ![CW Waveform Zoomed](docs/images/cw_waveform_zoom.jpeg) |
+|:---:|:---:|
+| **CW Waveform — Time Domain & FFT** | **CW Waveform (Zoomed) — Time Domain & FFT** |
+
+| ![Barker-13 Pulse](docs/images/barker13_pulse.jpeg) | ![LFM / Geometric Sweep](docs/images/lfm_sweep.jpeg) |
+|:---:|:---:|
+| **Barker-13 Windowed Pulse — Time Domain & FFT** | **LFM / Geometric Sweep — Time Domain & FFT** |
+
 ### Key Innovations
 
 | # | Innovation | Description |
@@ -47,7 +59,7 @@ The control-flow below mirrors the firmware decision logic (sensing → calibrat
 
 ```mermaid
 flowchart TD
-    A["Sense: T, S, D, Battery"] --> B["Core Compute:<br/>Calibration + Scaling"]
+    A["Sense: T, S, D, Battery"] --> B["Core Compute:<br/>Calibration + Averaging"]
     B --> C{Battery OK?}
     C -- No --> D["Fallback: CW mode"]
     C -- Yes --> E{LUT cache hit?<br/>RAM + SD card}
@@ -220,8 +232,8 @@ Modulation and windowing choice are driven by the live acoustic-loss and SNR est
 SparkX-SIH26058/
 │
 ├── firmware/                 STM32G474 embedded C firmware
-│   ├── main/                  DDS engine, sensor acquisition, decision logic
-│                   
+│   ├── src/                  DDS engine, sensor acquisition, decision logic
+│   └── inc/                  Headers / configuration
 │
 ├── docs/                     Design documentation
 │   ├── math/                 Full derivation sheet (acoustic + DSP formulas)
