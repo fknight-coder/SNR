@@ -2,10 +2,7 @@
 
 **Smart India Hackathon 2026 — Problem Statement 26058**
 
-![STM32](https://img.shields.io/badge/MCU-STM32G474-03234B?logo=stmicroelectronics&logoColor=white)
-![MATLAB](https://img.shields.io/badge/Sim-MATLAB-orange?logo=mathworks&logoColor=white)
-![KiCad](https://img.shields.io/badge/PCB-KiCad-314CB0?logo=kicad&logoColor=white)
-![C](https://img.shields.io/badge/Firmware-C-A8B9CC?logo=c&logoColor=black)
+
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 | Team | Team ID | PS Category | Theme | Institution |
