@@ -21,7 +21,7 @@ This document describes the physical components, MCU peripheral configuration an
 
 | Component | Qty | Function |
 |---|---|---|
-| STM32F407G-DISC1 board | 1 | Main compute — ADC sampling, adaptive DSP, DAC output |
+| STM32G474RE board | 1 | Main compute — ADC sampling, adaptive DSP, DAC output |
 | Linear potentiometer (10 kΩ) | 5 | Emulate Temperature, Depth, Turbidity, Salinity, Battery voltage inputs |
 | Onboard user LEDs (LD3–LD6) | 4 | Real-time waveform-mode indicator |
 | USB Micro-B cable | 1 | Power + ST-Link programming/debug |
