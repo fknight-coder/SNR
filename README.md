@@ -33,11 +33,11 @@ Captured on a Keysight InfiniiVision MSOX3014T (time domain + FFT):
 
 | ![LFM Waveform](docs/images/cw_waveform.jpeg) | ![CW Waveform](docs/images/cw_waveform_zoom.jpeg) |
 |:---:|:---:|
-| **CW Waveform — Time Domain & FFT** | **CW Waveform (Zoomed) — Time Domain & FFT** |
+| **LFM Waveform — Time Domain & FFT** | **CW Waveform — Time Domain & FFT** |
 
 | ![GS](docs/images/barker13_pulse.jpeg) | ![Barker-13](docs/images/lfm_sweep.jpeg) |
 |:---:|:---:|
-| **Barker-13 Windowed Pulse — Time Domain & FFT** | **LFM / Geometric Sweep — Time Domain & FFT** |
+| **GS — Time Domain & FFT** | *Barker 13  — Time Domain & FFT** |
 
 ### Key Innovations
 
