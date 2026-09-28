@@ -252,12 +252,6 @@ SparkX-SIH26058/
 - STM32G474 Nucleo/dev board (or target hardware)
 - MATLAB (for simulation/verification, optional)
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
-```
 
 ### Build & Flash Firmware
 
