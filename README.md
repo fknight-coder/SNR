@@ -37,7 +37,7 @@ Captured on a Keysight InfiniiVision MSOX3014T (time domain + FFT):
 
 | ![GS](docs/images/barker13_pulse.jpeg) | ![Barker-13](docs/images/lfm_sweep.jpeg) |
 |:---:|:---:|
-| **GS — Time Domain & FFT** | *Barker 13  — Time Domain & FFT** |
+| **GS — Time Domain & FFT** | **Barker 13  — Time Domain & FFT** |
 
 ### Key Innovations
 
