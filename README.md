@@ -97,7 +97,7 @@ All formulas below are implemented for on-device (STM32G474) computation and are
 
 Raw ADC counts are converted into physical units (temperature, depth, salinity, battery voltage) before being used anywhere else in the model:
 
-```
+```text
 x = a·ADC + b
 ```
 
@@ -109,10 +109,8 @@ x = a·ADC + b
 
 Converts the calibrated temperature, salinity, and depth readings into the actual speed of sound in the current water column. Valid for T: 2–30 °C, S: 25–40 ppt, D: 0–8000 m.
 
-```
-c(T,S,D) = 1448.96 + 4.591T − 0.05304T² + 0.0002374T³
-         + 1.340(S−35) + 0.01630D + 1.675×10⁻⁷D²
-         − 0.01025T(S−35) − 7.139×10⁻¹³T·D³
+```text
+c(T,S,D) = 1448.96 + 4.591T − 0.05304T² + 0.0002374T³ + 1.340(S−35) + 0.01630D + 1.675×10⁻⁷D² − 0.01025T(S−35) − 7.139×10⁻¹³T·D³
 ```
 
 Inputs `T`, `S`, `D` all come from Section 1's calibrated sensor readings — nothing here is mission-specified. The output `c` (m/s) feeds Sections 3, 4, 5, and 8 below.
@@ -123,7 +121,7 @@ Inputs `T`, `S`, `D` all come from Section 1's calibrated sensor readings — no
 
 For a monostatic system, the pulse travels out to the target and back over the same distance, so the round-trip time is:
 
-```
+```text
 t_flight = 2R / c
 ```
 
@@ -135,13 +133,13 @@ Here `R` is the target/operating range in metres — **mission-specified**, sinc
 
 Absorption α(f), in dB/km, is the sum of three physically distinct relaxation mechanisms in seawater: boric acid, magnesium sulfate, and pure water viscosity. Each term is evaluated separately and summed:
 
-```
+```text
 α(f) = (A1·P1·f1·f²)/(f1² + f²) + (A2·P2·f2·f²)/(f2² + f²) + A3·P3·f²
 ```
 
 **Boric acid contribution (dominant at low frequency, tens of kHz and below):**
 
-```
+```text
 A1 = (8.86/c)·10^(0.78·pH − 5)
 f1 = 2.8·√(S/35)·10^(4 − 1245/(T+273))
 P1 = 1
@@ -151,7 +149,7 @@ P1 = 1
 
 **Magnesium sulfate contribution (dominant in the mid-frequency range, roughly 10 kHz–500 kHz):**
 
-```
+```text
 A2 = 21.44·(S/c)·(1 + 0.025T)
 f2 = 8.17·10^(8 − 1990/(T+273)) / (1 + 0.0018(S−35))
 P2 = 1 − 1.37×10⁻⁴D + 6.2×10⁻⁹D²
@@ -161,7 +159,7 @@ All inputs (`S`, `c`, `T`, `D`) trace back to Sections 1–2 — no mission-spec
 
 **Pure water viscosity contribution (dominant at high frequency, above ~1 MHz, included for completeness):**
 
-```
+```text
 if T ≤ 20:  A3 = 4.937×10⁻⁴ − 2.59×10⁻⁵T + 9.11×10⁻⁷T² − 1.5×10⁻⁸T³
 if T > 20:  A3 = 3.964×10⁻⁴ − 1.146×10⁻⁵T + 1.45×10⁻⁷T² − 6.5×10⁻¹⁰T³
 P3 = 1 − 3.83×10⁻⁵D + 4.9×10⁻¹⁰D²
@@ -175,7 +173,7 @@ P3 = 1 − 3.83×10⁻⁵D + 4.9×10⁻¹⁰D²
 
 Combines geometric spreading loss with the frequency-dependent absorption from Section 4 over the mission range:
 
-```
+```text
 TL(f) = 20·log10(R) + α(f)·R_km,      R_km = R / 1000
 ```
 
@@ -187,7 +185,7 @@ TL(f) = 20·log10(R) + α(f)·R_km,      R_km = R / 1000
 
 Determines how loud (what source level) the transmitter must actually produce, given the acoustic environment and the detection requirement:
 
-```
+```text
 SNR = SL − 2·TL − (NL − DI) + TS
 
 ∴ SL = SNR_required + 2·TL + (NL − DI) − TS
@@ -208,7 +206,7 @@ The resulting `SL` (in dB re 1 µPa @ 1 m) is mapped to an actual DAC drive ampl
 
 Rather than fixing one frequency, a set of candidate frequencies is scored and the lowest-cost, hardware-feasible option is selected:
 
-```
+```text
 J(f) = 2·TL(f) + E_penalty(f) + H_hardware(f)
 f* = argmin J(f)
 ```
@@ -221,7 +219,7 @@ f* = argmin J(f)
 
 Derives the signal bandwidth needed to achieve the mission's required spatial resolution:
 
-```
+```text
 B = c / (2·ΔR)
 ```
 
@@ -231,7 +229,7 @@ B = c / (2·ΔR)
 
 ## 9. Pulse Duration & Sample Count
 
-```
+```text
 Tp = TB / B
 N  = Tp · Fs
 ```
@@ -242,7 +240,7 @@ N  = Tp · Fs
 
 ## 10. Waveform Synthesis — LFM Chirp Rate
 
-```
+```text
 K = (f1 − f0) / Tp
 ```
 
@@ -254,7 +252,7 @@ K = (f1 − f0) / Tp
 
 Generates the instantaneous phase of the waveform, sample by sample, in real time:
 
-```
+```text
 Δφ[n] = 2π·f[n] / Fs
 φ[n+1] = φ[n] + Δφ[n]
 ```
@@ -267,7 +265,7 @@ Generates the instantaneous phase of the waveform, sample by sample, in real tim
 
 Rather than computing `sin()` for every sample on the CPU, the phase is used to index into a precomputed table:
 
-```
+```text
 index = floor((φ mod 2π) / 2π · M)
 ```
 
@@ -279,7 +277,7 @@ index = floor((φ mod 2π) / 2π · M)
 
 Applies an amplitude envelope to taper the pulse's start and end, reducing spectral sidelobes:
 
-```
+```text
 w[n] = 0.5·(1 − cos(2π·n / (N−1)))      # Hann window shown; Hamming/Blackman follow the same n, N pattern with different coefficients
 ```
 
@@ -291,7 +289,7 @@ w[n] = 0.5·(1 − cos(2π·n / (N−1)))      # Hann window shown; Hamming/Blac
 
 The final step, converting the windowed sine sample into an actual 12-bit DAC output code:
 
-```
+```text
 DAC[n] = 2047.5 + G·A·w[n]·sin(φ[n])    # 12-bit unsigned output
 ```
 
@@ -305,99 +303,6 @@ DAC[n] = 2047.5 + G·A·w[n]·sin(φ[n])    # 12-bit unsigned output
 ---
 
 > **Note:** Sections 2, 3, 5, 6, 8–14 are pure math, computable on the STM32 with no extra hardware. Amplitude calibration (Section 14's gain constant `G`) and the SNR feedback loop require a hydrophone for measured, rather than assumed, values.
-
-## Acoustic & Signal-Processing Model
-
-All formulas are implemented for on-device (STM32G474) computation and are traceable end-to-end from raw sensor readings to the final DAC sample stream.
-
-### 1. Sensor Calibration
- 
-Raw ADC counts are converted into physical units (temperature, depth, salinity, battery voltage) before being used anywhere else in the model:
- 
-```
-x = a·ADC + b
-```
- 
-Here `a` (scale/slope) and `b` (offset) are **predefined constants taken from the respective sensor's datasheet**, so no separate calibration procedure is needed. The firmware simply applies these fixed coefficients to every ADC reading.
-
-### 2. Sound Speed — Mackenzie (1981) Equation
-
-Valid for T: 2–30 °C, S: 25–40 ppt, D: 0–8000 m.
-
-```
-c(T,S,D) = 1448.96 + 4.591T − 0.05304T² + 0.0002374T³
-         + 1.340(S−35) + 0.01630D + 1.675×10⁻⁷D²
-         − 0.01025T(S−35) − 7.139×10⁻¹³T·D³
-```
-
-### 3. Range & Time-of-Flight (Monostatic)
-
-```
-# Predefined (Mission specified)
-```
-
-### 4–5. Frequency-Dependent Absorption & Transmission Loss
-
-Absorption α(f, T, S, D, pH) is evaluated via the Francois–Garrison model; combined with spreading loss:
-
-```
-TL = 20·log10(R) + α·R_km
-α = 
-```
-
-## 4. Active SONAR equation
-
-$$SNR = SL - 2\,TL - (NL - DI) + TS$$
-
-$$\therefore\; SL = SNR_{required} + 2\,TL + (NL - DI) - TS$$
-
-- $SL$: source level
-- $SNR_{required}$: mission spec
-- $NL$: noise level (later, actual receiver noise level)
-- $DI$: directivity index (transducer's property)
-- $TS$: target strength
- 
-The factor of 2 on TL accounts for the signal losing energy on both the outbound and return paths. The resulting SL (in dB re 1 µPa @ 1 m) is then mapped to the DAC drive amplitude.
-
-### 7. Frequency Optimization (Coarse → Fine)
-
-Candidate frequencies are scored and the lowest-cost, hardware-feasible option is selected:
-
-```
-J(f) = 2·TL(f) + E_penalty(f) + H_hardware(f)
-```
-
-Hard constraints (Nyquist limit, amplifier range) reject candidates outright rather than merely penalizing them.
-
-### 8–9. Bandwidth, Pulse Duration & Sample Count
-
-```
-B  = c / (2·ΔR)                 # from required range resolution
-Tp = TB_required / B            # from time-bandwidth product
-N  = Tp · Fs
-```
-
-### 10–12. Waveform Synthesis — LFM / DDS / LUT
-
-```
-K = (f1 − f0) / Tp                          # chirp rate
-Δφ[n] = 2π·f[n] / Fs
-φ[n+1] = φ[n] + Δφ[n]
-index  = floor((φ mod 2π) / 2π · M)         # M-entry sine LUT
-```
-
-### 13–14. Windowing & DAC Mapping
-
-```
-w[n]    = 0.5·(1 − cos(2π·n / (N−1)))       # Hann window
-DAC[n]  = 2047.5 + G · A · w[n] · sin(φ[n]) # 12-bit unsigned output
-```
-
-
-> **Note:** Sections 2, 3, 5, 6, 8–14 are pure math, computable on the STM32 with no extra hardware. Amplitude calibration (Section 14's gain constant `G`) and the SNR feedback loop (Section 15) require a hydrophone for measured, rather than assumed, values.
-
-
----
 
 ## Adaptive Modulation
 
