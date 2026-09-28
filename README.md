@@ -2,12 +2,9 @@
 
 **Smart India Hackathon 2026 — Problem Statement 26058**
 
-
 | Team | Team ID | PS Category | Theme |
-
-
-| **SparkX** | **137** | Hardware | Robotics and Drones | 
-
+|------|---------|-------------|-------|
+| SparkX | 137 | Hardware | Robotics and Drones |
 ---
 
 ## Problem Statement
