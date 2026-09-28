@@ -35,7 +35,7 @@ Captured on a Keysight InfiniiVision MSOX3014T (time domain + FFT):
 |:---:|:---:|
 | **LFM Waveform — Time Domain & FFT** | **CW Waveform — Time Domain & FFT** |
 
-| ![GS](docs/images/GS.jpeg) | ![Barker-13](docs/images/Barker-13.jpeg) |
+| ![GS](docs/images/GS_waveform.jpeg) | ![Barker-13](docs/images/Barker-13.jpeg) |
 |:---:|:---:|
 | **GS — Time Domain & FFT** | **Barker 13  — Time Domain & FFT** |
 
