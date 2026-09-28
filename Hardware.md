@@ -10,10 +10,10 @@ This document describes the physical components, MCU peripheral configuration an
 
 | Item | Detail |
 |---|---|
-| Board | STM32F407G-DISC1 (Discovery kit) |
-| MCU | STM32F407VGT6 (ARM Cortex-M4, 168 MHz) |
-| System clock | HSE (8 MHz) → PLL → 168 MHz SYSCLK (PLLM=8, PLLN=336, PLLP=/2) |
-| Voltage scaling | PWR_REGULATOR_VOLTAGE_SCALE1 |
+| Board | STM32G474RE (Nucleo) |
+| MCU | STM32G474RE (ARM Cortex-M4, 170 MHz) |
+| System clock | HSE (8 MHz) → PLL → 168 MHz SYSCLK (PLLM=2, PLLN=84, PLLP=/2) |
+| Voltage scaling | RANGE 1 BOOST |
 
 ---
 
