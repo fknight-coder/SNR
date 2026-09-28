@@ -12,7 +12,7 @@ This document describes the physical components, MCU peripheral configuration an
 |---|---|
 | Board | STM32G474RE (Nucleo) |
 | MCU | STM32G474RE (ARM Cortex-M4, 170 MHz) |
-| System clock | HSE (8 MHz) → PLL → 168 MHz SYSCLK (PLLM=2, PLLN=84, PLLP=/2) |
+| System clock | HSE (8 MHz) → PLL → 168 MHz SYSCLK (PLLM=2, PLLN=84, PLLP=2) |
 | Voltage scaling | RANGE 1 BOOST |
 
 ---
