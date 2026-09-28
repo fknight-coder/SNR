@@ -4,7 +4,8 @@
 
 
 | Team | Team ID | PS Category | Theme |
-|---|---|---|---|---|
+
+
 | **SparkX** | **137** | Hardware | Robotics and Drones | 
 
 ---
