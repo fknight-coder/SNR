@@ -94,7 +94,7 @@ All formulas are implemented for on-device (STM32G474) computation and are trace
 Raw ADC counts are linearized against known reference values before use:
 
 ```
-x = a·ADC + b
+x = a·ADC + b                 # Predefined
 ```
 
 ### 2. Sound Speed — Mackenzie (1981) Equation
@@ -110,7 +110,7 @@ c(T,S,D) = 1448.96 + 4.591T − 0.05304T² + 0.0002374T³
 ### 3. Range & Time-of-Flight (Monostatic)
 
 ```
-R = c·t_echo / 2
+R = c·t_echo / 2                 # Predefined
 ```
 
 ### 4–5. Frequency-Dependent Absorption & Transmission Loss
@@ -163,11 +163,6 @@ w[n]    = 0.5·(1 − cos(2π·n / (N−1)))       # Hann window
 DAC[n]  = 2047.5 + G · A · w[n] · sin(φ[n]) # 12-bit unsigned output
 ```
 
-### 15. Hydrophone-Measured SNR (validation/feedback only)
-
-```
-SNR_dB = 10·log10(P_signal / P_noise)
-```
 
 > **Note:** Sections 2, 3, 5, 6, 8–14 are pure math, computable on the STM32 with no extra hardware. Amplitude calibration (Section 14's gain constant `G`) and the SNR feedback loop (Section 15) require a hydrophone for measured, rather than assumed, values.
 
@@ -180,7 +175,7 @@ SNR_dB = 10·log10(P_signal / P_noise)
 | Required range resolution ΔR | 0.05 m |
 | Required SNR | 10 dB |
 | NL / DI / TS | 50 dB / 10 dB / 10 dB |
-| Sample rate Fs | 500 kHz |
+| Sample rate Fs | 2 MHz |
 
 | Output | Value |
 |---|---|
@@ -219,7 +214,7 @@ Modulation and windowing choice are driven by the live acoustic-loss and SNR est
 | PCB / Schematic | KiCad |
 | Signal Analysis | DSP with FFT, Oscilloscope, Spectrum Analyzer |
 | Mechanical Design | Autodesk Fusion 360 |
-| Prototyping | Arduino |
+| Prototyping | STM32F407VGT6 (Discovery 1) |
 
 ---
 
@@ -229,19 +224,17 @@ Modulation and windowing choice are driven by the live acoustic-loss and SNR est
 SparkX-SIH26058/
 │
 ├── firmware/                 STM32G474 embedded C firmware
-│   ├── src/                  DDS engine, sensor acquisition, decision logic
-│   └── inc/                  Headers / configuration
+│   └── main.c                  DDS engine, sensor acquisition, decision logic
+│                               Headers / configuration
 │
 ├── docs/                     Design documentation
-│   ├── math/                 Full derivation sheet (acoustic + DSP formulas)
-│   ├── architecture/         System & signal-flow diagrams
 │   └── images/                Flowcharts, oscilloscope captures, CAD renders
 │
 ├── simulation/                MATLAB models (waveform + propagation simulation)
 │
-├── hardware/                  Schematics / KiCad project, wiring reference
+├── hardware/                   wiring reference
 │
-├── mechanical/cad/            AUV payload CAD (Fusion 360 exports)
+├── mechanical/cad/             AUV payload CAD (Fusion 360 exports)
 │
 ├── LICENSE
 └── README.md
