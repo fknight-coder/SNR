@@ -1,4 +1,4 @@
-# SparkX — Adaptive Software-Defined Sonar Transmitter Payload
+# SparkX — Ocean-Physics-Optimized Self Tunning Low Power Sonar Transmitter for AUVs
 
 **Smart India Hackathon 2026 — Problem Statement 26058**
 
