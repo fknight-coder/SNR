@@ -25,7 +25,8 @@ SparkX proposes a **software-defined sonar transmitter** that senses its environ
 
 The payload continuously samples five environmental/system inputs (temperature, salinity, depth, and battery/system state), runs them through physics-based acoustic models, and derives the transmission parameters that minimize propagation loss while meeting the mission's resolution and SNR requirements. The resulting waveform is generated on-chip via DDS and streamed to the DAC using Timer + DMA, keeping the CPU free for the next sensing/decision cycle.
 
-**Core pipeline:** `Sense → Calibrate → Model Acoustics → Select Frequency → Select Waveform → Synthesize (DDS) → Stream (DMA) → Transmit (DAC)`
+**Core pipeline:** `Sense → Calibrate → Real Oceanographic Calculation → Transmission loss calculation → Select Best Candidate Frequency → Source-Level Requirement & SNR Gap → Parameter, Modulation & Window Selection →  Waveform Generation - DDS phase accumulator + sine lookup table genneration
+→ DMA + TIM → DAC`
 
 ### Hardware-Validated Waveforms
 
@@ -112,7 +113,7 @@ c(T,S,D) = 1448.96 + 4.591T − 0.05304T² + 0.0002374T³
 ### 3. Range & Time-of-Flight (Monostatic)
 
 ```
-R = c·t_echo / 2                 # Predefined
+# Predefined (Mission specified)
 ```
 
 ### 4–5. Frequency-Dependent Absorption & Transmission Loss
@@ -121,21 +122,20 @@ Absorption α(f, T, S, D, pH) is evaluated via the Francois–Garrison model; co
 
 ```
 TL = 20·log10(R) + α·R_km
+α = 
 ```
 
-### 6. Active Sonar Equation
- 
-The standard active sonar equation relates received SNR to the transmitted source level:
- 
-```
-SNR = SL − 2·TL − (NL − DI) + TS
-```
- 
-In this system the required SNR is the target, so the equation is rearranged to **solve for the source level (SL)** the transmitter must produce:
- 
-```
-SL = SNR + 2·TL + (NL − DI) − TS
-```
+## 4. Active SONAR equation
+
+$$SNR = SL - 2\,TL - (NL - DI) + TS$$
+
+$$\therefore\; SL = SNR_{required} + 2\,TL + (NL - DI) - TS$$
+
+- $SL$: source level
+- $SNR_{required}$: mission spec
+- $NL$: noise level (later, actual receiver noise level)
+- $DI$: directivity index (transducer's property)
+- $TS$: target strength
  
 The factor of 2 on TL accounts for the signal losing energy on both the outbound and return paths. The resulting SL (in dB re 1 µPa @ 1 m) is then mapped to the DAC drive amplitude.
 
@@ -176,28 +176,6 @@ DAC[n]  = 2047.5 + G · A · w[n] · sin(φ[n]) # 12-bit unsigned output
 
 > **Note:** Sections 2, 3, 5, 6, 8–14 are pure math, computable on the STM32 with no extra hardware. Amplitude calibration (Section 14's gain constant `G`) and the SNR feedback loop (Section 15) require a hydrophone for measured, rather than assumed, values.
 
-### Worked Example
-
-| Input | Value |
-|---|---|
-| Temperature / Salinity / Depth | 20 °C / 35 ppt / 50 m |
-| Target range | 80 m |
-| Required range resolution ΔR | 0.05 m |
-| Required SNR | 10 dB |
-| NL / DI / TS | 50 dB / 10 dB / 10 dB |
-| Sample rate Fs | 2 MHz |
-
-| Output | Value |
-|---|---|
-| Sound speed (Mackenzie) | ≈ 1522.28 m/s |
-| Selected center frequency | 100 kHz (of 100/150/200 kHz candidates) |
-| Bandwidth B | ≈ 15.22 kHz |
-| Chirp span (f0 → f1) | 92.39 kHz → 107.61 kHz |
-| Pulse duration Tp (TB = 100) | ≈ 6.57 ms |
-| Samples N | ≈ 3284 |
-| Required source level SL | ≈ 121.18 dB re 1 µPa @ 1 m |
-| Calibrated drive amplitude | ≈ 0.647 |
-| Round-trip echo time | ≈ 105.1 ms |
 
 ---
 
