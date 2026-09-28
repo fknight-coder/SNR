@@ -3,11 +3,9 @@
 **Smart India Hackathon 2026 — Problem Statement 26058**
 
 
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
-
-| Team | Team ID | PS Category | Theme | Institution |
+| Team | Team ID | PS Category | Theme |
 |---|---|---|---|---|
-| **SparkX** | **137** | Hardware | Robotics and Drones | K. K. Wagh Institute of Engineering Education & Research, Nashik |
+| **SparkX** | **137** | Hardware | Robotics and Drones | 
 
 ---
 
@@ -23,7 +21,12 @@ SparkX proposes a **software-defined sonar transmitter** that senses its environ
 
 ## Solution Overview
 
-The payload continuously samples five environmental/system inputs (temperature, salinity, depth, and battery/system state), runs them through physics-based acoustic models, and derives the transmission parameters that minimize propagation loss while meeting the mission's resolution and SNR requirements. The resulting waveform is generated on-chip via DDS and streamed to the DAC using Timer + DMA, keeping the CPU free for the next sensing/decision cycle.
+Five environmental sensors are continuously sampled, scaled and calibrated via ADC+DMA.
+Mackenzie and Francois-Garrison models compute live acoustic conditions for adaptive frequency selection.
+A two-stage (coarse-to-fine) numerical search evaluates transmission loss across candidate frequencies and selects the lowest-loss option.
+The sonar equation derives source level and calibrated DAC amplitude.
+CW / LFM / Geometric / Barker-13 and adaptive windowing provide flexible waveform generation.
+DDS + sine-LUT with timer-triggered DMA streams the waveform directly to the DAC.
 
 **Core pipeline:** `Sense → Calibrate → Real Oceanographic Calculation → Transmission loss calculation → Select Best Candidate Frequency → Source-Level Requirement & SNR Gap → Parameter, Modulation & Window Selection →  Waveform Generation - DDS phase accumulator + sine lookup table genneration
 → DMA + TIM → DAC`
