@@ -31,11 +31,11 @@ The payload continuously samples five environmental/system inputs (temperature, 
 
 Captured on a Keysight InfiniiVision MSOX3014T (time domain + FFT):
 
-| ![CW Waveform](docs/images/cw_waveform.jpeg) | ![CW Waveform Zoomed](docs/images/cw_waveform_zoom.jpeg) |
+| ![LFM Waveform](docs/images/cw_waveform.jpeg) | ![CW Waveform](docs/images/cw_waveform_zoom.jpeg) |
 |:---:|:---:|
 | **CW Waveform — Time Domain & FFT** | **CW Waveform (Zoomed) — Time Domain & FFT** |
 
-| ![Barker-13 Pulse](docs/images/barker13_pulse.jpeg) | ![LFM / Geometric Sweep](docs/images/lfm_sweep.jpeg) |
+| ![GS](docs/images/barker13_pulse.jpeg) | ![Barker-13](docs/images/lfm_sweep.jpeg) |
 |:---:|:---:|
 | **Barker-13 Windowed Pulse — Time Domain & FFT** | **LFM / Geometric Sweep — Time Domain & FFT** |
 
