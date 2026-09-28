@@ -90,12 +90,14 @@ flowchart TD
 All formulas are implemented for on-device (STM32G474) computation and are traceable end-to-end from raw sensor readings to the final DAC sample stream.
 
 ### 1. Sensor Calibration
-
-Raw ADC counts are linearized against known reference values before use:
-
+ 
+Raw ADC counts are converted into physical units (temperature, depth, salinity, battery voltage) before being used anywhere else in the model:
+ 
 ```
-x = a·ADC + b                 # Predefined
+x = a·ADC + b
 ```
+ 
+Here `a` (scale/slope) and `b` (offset) are **predefined constants taken from the respective sensor's datasheet**, so no separate calibration procedure is needed. The firmware simply applies these fixed coefficients to every ADC reading.
 
 ### 2. Sound Speed — Mackenzie (1981) Equation
 
@@ -122,12 +124,20 @@ TL = 20·log10(R) + α·R_km
 ```
 
 ### 6. Active Sonar Equation
-
-Determines the required source level for a target SNR:
-
+ 
+The standard active sonar equation relates received SNR to the transmitted source level:
+ 
 ```
 SNR = SL − 2·TL − (NL − DI) + TS
 ```
+ 
+In this system the required SNR is the target, so the equation is rearranged to **solve for the source level (SL)** the transmitter must produce:
+ 
+```
+SL = SNR + 2·TL + (NL − DI) − TS
+```
+ 
+The factor of 2 on TL accounts for the signal losing energy on both the outbound and return paths. The resulting SL (in dB re 1 µPa @ 1 m) is then mapped to the DAC drive amplitude.
 
 ### 7. Frequency Optimization (Coarse → Fine)
 
