@@ -23,8 +23,7 @@ This document describes the physical components, MCU peripheral configuration an
 |---|---|---|
 | STM32G474RE board | 1 | Main compute — ADC sampling, adaptive DSP, DAC output |
 | Linear potentiometer (10 kΩ) | 5 | Emulate Temperature, Depth, Turbidity, Salinity, Battery voltage inputs |
-| Onboard user LEDs (LD3–LD6) | 4 | Real-time waveform-mode indicator |
-| USB Micro-B cable | 1 | Power + ST-Link programming/debug |
+
 
 Onboard peripherals inherited from the Discovery board's default CubeMX configuration (I2S3/audio codec, MEMS accelerometer SPI, USB OTG FS, user button B1) are initialized by the board-support code but are **not** part of the sonar signal chain — see [Unused Onboard Peripherals](#unused-onboard-peripherals).
 
