@@ -33,11 +33,11 @@ DDS + sine-LUT with timer-triggered DMA streams the waveform directly to the DAC
 
 Captured on a Keysight InfiniiVision MSOX3014T (time domain + FFT):
 
-| ![LFM Waveform](docs/images/LFM_waveform.jpeg) | ![CW Waveform](docs/images/CW_waveform.jpeg) |
+| ![LFM Waveform](docs/image/LFM.jpeg) | ![CW Waveform](docs/image/CW.jpeg) |
 |:---:|:---:|
 | **LFM Waveform — Time Domain & FFT** | **CW Waveform — Time Domain & FFT** |
 
-| ![GS](docs/images/GS_waveform.jpeg) | ![Barker-13](docs/images/Barker-13.jpeg) |
+| ![GS](docs/image/GS.jpeg) | ![Barker-13](docs/image/Barker.jpeg) |
 |:---:|:---:|
 | **GS — Time Domain & FFT** | **Barker 13  — Time Domain & FFT** |
 
