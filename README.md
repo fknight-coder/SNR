@@ -348,7 +348,7 @@ SparkX-SIH26058/
 │
 ├── hardware/                  wiring reference
 │
-├── mechanical/                AUV payload CAD (Fusion 360 exports)
+├── mechanical/                AUV payload CAD (images)
 │
 ├── LICENSE
 └── README.md
