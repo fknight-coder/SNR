@@ -341,7 +341,7 @@ SparkX-SIH26058/
 │                               Headers / configuration
 │
 ├── docs/                     Design documentation
-│   └── images/                Flowcharts, oscilloscope captures, CAD renders
+│   └── image/                Flowcharts, oscilloscope captures, CAD renders
 │
 ├── simulation/                MATLAB models (waveform + propagation simulation)
 │
