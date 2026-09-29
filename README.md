@@ -345,6 +345,7 @@ SparkX-SIH26058/
 │
 ├── simulation/                MATLAB models (waveform + propagation simulation)
 │   └── SparkX.slx
+│
 ├── hardware/                  wiring reference
 │
 ├── mechanical/                AUV payload CAD (Fusion 360 exports)
