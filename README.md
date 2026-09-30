@@ -1,10 +1,10 @@
-# SparkX — Ocean-Physics-Optimized Self Tunning Low Power Sonar Transmitter for AUVs
+# ZSPARK — Ocean-Physics-Optimized Self Tunning Low Power Sonar Transmitter for AUVs
 
 **Smart India Hackathon 2026 — Problem Statement 26058**
 
 | Team | Team ID | PS Category | Theme |
 |------|---------|-------------|-------|
-| SparkX |   | Hardware | Robotics and Drones |
+| ZSPARK | 190580 | Hardware | Robotics and Drones |
 ---
 
 ## Problem Statement
@@ -13,7 +13,7 @@
 
 Conventional sonar transmitters run on fixed frequency, pulse duration and amplitude settings. They cannot react to changing underwater conditions (temperature, salinity, depth) and therefore waste battery, lose signal quality, or fail to balance range against resolution.
 
-SparkX proposes a **software-defined sonar transmitter** that senses its environment, computes the acoustically optimal transmission parameters in real time, and synthesizes a matched waveform entirely in firmware — with no hardware changes required to reconfigure it.
+ZSPARK proposes a **software-defined sonar transmitter** that senses its environment, computes the acoustically optimal transmission parameters in real time, and synthesizes a matched waveform entirely in firmware — with no hardware changes required to reconfigure it.
 
 ---
 
@@ -334,7 +334,7 @@ Modulation and windowing choice are driven by the live acoustic-loss and SNR est
 ## Repository Structure
 
 ```
-SparkX-SIH26058/
+ZSPARK-SIH26058/
 │
 ├── firmware/                  STM32G474 embedded C firmware
 │   └── main.c                 DDS engine, sensor acquisition, decision logic
@@ -344,7 +344,7 @@ SparkX-SIH26058/
 │   └── image/                 Flowcharts, oscilloscope captures, CAD renders
 │
 ├── simulation/                MATLAB models (waveform + propagation simulation)
-│   └── SparkX.slx
+│   └── ZSPARK.slx
 │
 ├── hardware/                  wiring reference
 │
@@ -427,4 +427,4 @@ This project is released under the [MIT License](LICENSE).
 
 ---
 
-**Team SparkX | SIH26058 | K. K. Wagh Institute of Engineering Education & Research, Nashik**
+**Team ZSPARK | SIH26058 | K. K. Wagh Institute of Engineering Education & Research, Nashik**
