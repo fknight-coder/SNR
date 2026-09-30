@@ -1,4 +1,4 @@
-# Hardware — SparkX Adaptive Sonar Transmitter
+# Hardware — ZSPARK Adaptive Sonar Transmitter
 
 This document describes the physical components, MCU peripheral configuration and wiring architecture used in the current prototype, as implemented in [`firmware/main.c`](../firmware/main.c).
 
