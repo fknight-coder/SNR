@@ -6,6 +6,17 @@
 |------|---------|-------------|-------|
 | ZSPARK | 190580 | Hardware | Robotics and Drones |
 ---
+### Hardware-Validated Waveforms
+
+Captured on a Keysight InfiniiVision MSOX3014T (time domain + FFT):
+
+| ![LFM Waveform](docs/image/LFM.jpeg) | ![CW Waveform](docs/image/CW.jpeg) |
+|:---:|:---:|
+| **LFM Waveform — Time Domain & FFT** | **CW Waveform — Time Domain & FFT** |
+
+| ![GS](docs/image/GS.jpeg) | ![Barker-13](docs/image/Barker.jpeg) |
+|:---:|:---:|
+| **GS — Time Domain & FFT** | **Barker 13  — Time Domain & FFT** |
 
 ## Problem Statement
 
@@ -28,18 +39,6 @@ DDS + sine-LUT with timer-triggered DMA streams the waveform directly to the DAC
 
 **Core pipeline:** `Sense → Calibrate → Real Oceanographic Calculation → Transmission loss calculation → Select Best Candidate Frequency → Source-Level Requirement & SNR Gap → Parameter, Modulation & Window Selection →  Waveform Generation - DDS phase accumulator + sine lookup table genneration
 → DMA + TIM → DAC`
-
-### Hardware-Validated Waveforms
-
-Captured on a Keysight InfiniiVision MSOX3014T (time domain + FFT):
-
-| ![LFM Waveform](docs/image/LFM.jpeg) | ![CW Waveform](docs/image/CW.jpeg) |
-|:---:|:---:|
-| **LFM Waveform — Time Domain & FFT** | **CW Waveform — Time Domain & FFT** |
-
-| ![GS](docs/image/GS.jpeg) | ![Barker-13](docs/image/Barker.jpeg) |
-|:---:|:---:|
-| **GS — Time Domain & FFT** | **Barker 13  — Time Domain & FFT** |
 
 ### Key Innovations
 
