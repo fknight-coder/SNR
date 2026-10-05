@@ -335,12 +335,13 @@ Modulation and windowing choice are driven by the live acoustic-loss and SNR est
 ```
 ZSPARK-SIH26058/
 │
-├── firmware/                  STM32G474 embedded C firmware
+├── Firmware/
+│   └── hal1.c          STM32G474 embedded C firmware
 │   └── main.c                 DDS engine, sensor acquisition, decision logic
 │                              Headers / configuration
 │
-├── docs/                      Design documentation
-│   └── image/                 Flowcharts, oscilloscope captures, CAD renders
+├── Docs/                      Design documentation
+│   └── Images/                 Flowcharts, oscilloscope captures, CAD renders
 │
 ├── simulation/                MATLAB models (waveform + propagation simulation)
 │   └── ZSPARK.slx
